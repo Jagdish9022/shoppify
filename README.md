@@ -133,7 +133,7 @@ GET /track/routes/list
 
 5. **Run the application**
    ```bash
-   python -m app.main
+   uvicorn app.main:app --reload
    ```
 
 The API will be available at `http://localhost:8000`

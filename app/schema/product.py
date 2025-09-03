@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 import uuid
 from datetime import datetime
 
@@ -21,6 +21,7 @@ class ProductResponse(ProductBase):
         from_attributes = True
 
 class BuyProductBase(BaseModel):
+    product_id: Optional[uuid.UUID] = None
     product: str
     description: Optional[str] = None
     full_name: str
@@ -55,3 +56,22 @@ class TrackingResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class PhoneNumberRequest(BaseModel):
+    phone: str
+
+class OrderByPhoneResponse(BaseModel):
+    order_id: uuid.UUID
+    product_id: Optional[uuid.UUID]
+
+    class Config:
+        from_attributes = True
+
+class OrdersByPhoneResponse(BaseModel):
+    phone: str
+    total_orders: int
+    orders: List[OrderByPhoneResponse]
+
+class ReasonPayload(BaseModel):
+    id: uuid.UUID
+    reason: str
